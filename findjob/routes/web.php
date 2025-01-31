@@ -10,4 +10,5 @@ use App\Http\Controllers\AccountController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/account/register',[AccountController::class,'registration'])->name('account.registration');
-// Route::get('/contact',[HomeController::class,'contact'])->name('contact');
+Route::post('/account/process-register',[AccountController::class,'processRegistration'])->name('account.processRegistration');
+
