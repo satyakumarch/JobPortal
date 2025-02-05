@@ -70,8 +70,21 @@ class AccountController extends Controller
         }
     }
     public function profile(){
-        echo "Profile page";
+        return view('front.account.profile');
     }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('account.login');
+    }
+    // use Illuminate\Support\Facades\Auth;
+
+// public function profile()
+// {
+//     if (!Auth::check()) {
+//         return redirect()->route('account.login')->with('error', 'Please log in first.');
+//     }
+//     return view('front.account.profile');
+// }
 
 
 }
