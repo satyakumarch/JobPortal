@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;  // Import the Auth facade
+
 
 class AccountController extends Controller
 {
@@ -51,15 +53,25 @@ class AccountController extends Controller
     }
     public function authenticate(Request $request){
         $validator=Validator::make($request->all(),[
-            'email'=>'required',
+            'email'=>'required|email',
             'password'=>'required'
         ]);
         if($validator->passes()){
-            return response()->json(['message'=>'Form submitted successfully']);
+            if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
+                return redirect()->route('account.profile');
+            }else{
+                return redirect()->route('account.login')->with('error','Either Email/Password is incorrect');
+            }
+
         }else{
-            return response()->json(['errors'=>$validator->errors()],422);
-           
+            return redirect()->route('account.login')
+            ->withErrors($validator)
+            ->withInput($request->only('email'));
         }
     }
+    public function profile(){
+        echo "Profile page";
+    }
+
 
 }
