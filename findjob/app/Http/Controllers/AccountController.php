@@ -49,5 +49,17 @@ class AccountController extends Controller
         return view('front.account.login');
 
     }
+    public function authenticate(Request $request){
+        $validator=Validator::make($request->all(),[
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+        if($validator->passes()){
+            return response()->json(['message'=>'Form submitted successfully']);
+        }else{
+            return response()->json(['errors'=>$validator->errors()],422);
+           
+        }
+    }
 
 }
