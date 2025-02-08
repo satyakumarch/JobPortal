@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                @include('front.account.slidebar')
+                @include('front.account.sidebar')
             </div>
             <div class="col-lg-9">
                 <div class="card border-0 shadow mb-4">
