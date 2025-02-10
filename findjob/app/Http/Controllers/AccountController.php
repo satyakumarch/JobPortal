@@ -76,15 +76,5 @@ class AccountController extends Controller
         Auth::logout();
         return redirect()->route('account.login');
     }
-    // use Illuminate\Support\Facades\Auth;
-
-// public function profile()
-// {
-//     if (!Auth::check()) {
-//         return redirect()->route('account.login')->with('error', 'Please log in first.');
-//     }
-//     return view('front.account.profile');
-// }
-
-
+    
 }
