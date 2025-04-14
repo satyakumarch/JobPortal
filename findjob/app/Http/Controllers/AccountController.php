@@ -70,11 +70,58 @@ class AccountController extends Controller
         }
     }
     public function profile(){
+
+       $id= Auth::user()->id;
+
+       $user =User::where('id',$id)->first();
+
+       return view('front.account.profile',[
+        'user'=>$user
+       ]);
+
+
+
+
         return view('front.account.profile');
     }
     public function logout(){
         Auth::logout();
         return redirect()->route('account.login');
     }
-    
+    public function updateProfilePic(Request $request){
+        // dd($request->all());
+
+        $id=Auth::user()->id;
+
+
+        $validator=Validator::make($request->all(),[
+            'image'=>'required|image'
+        ]);
+
+        if($validator->passes()){
+
+            // $image=$request->image;
+            $image = $request->file('image'); // Use file() to get the uploaded file
+            $ext=$image->getClientOriginalExtension();
+            $imageName = $id . '-' . time() . '.' . $ext;
+
+            $image->move(public_path('/profile_pic/'),$imageName);
+
+            User::where('id',$id)->update(['image'=>$imageName]);
+
+            session()->flash('success','Profile picture updated successfully');
+            
+
+            return response()->json([
+                'status' =>true,
+                'errors'=>[]
+            ]);
+        
+        }else{
+            return response()->json([
+                'status' =>false,
+                'errors'=>$validator->errors()
+            ]);
+        }
+    }    
 }

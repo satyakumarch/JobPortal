@@ -12,11 +12,16 @@ Route::post('/account/authenticate',[AccountController::class,'authenticate'])->
 // Route::get('/account/profile',[AccountController::class,'profile'])->name('account.profile');
 Route::get('/account/profile', [AccountController::class, 'profile'])->name('account.profile');
 Route::get('/account/logout', [AccountController::class, 'logout'])->name('account.logout');
+// ROute::get('/update-profile-pic',[AccountController::class,'updateProfilePic'])->name('account.updateProfilePic'); 
+// Route::post('/account/update-profile-pic', [AccountController::class, 'updateProfilePic'])->name('account.updateProfilePic');
+Route::post('account/profile/update-pic', [AccountController::class, 'updateProfilePic'])->name('account.updateProfilePic');
+
 // Route::middleware(['auth'])->group(function () {
 // Route::get('/dashboard', function () { return view('dashboard');
 //  });
 // Route::group(['account'],function(){
     //Guest route
+
 
 
 
